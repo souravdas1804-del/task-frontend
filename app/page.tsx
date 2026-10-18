@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 interface Task {
   id: number;
-  title: str;
+  title: string;
   is_completed: boolean;
 }
 
@@ -16,21 +16,33 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   // 1. Fetch tasks on initial load
-  const fetchTasks = async () => {
-    try {
-      const res = await fetch(`${API_BASE_URL}/tasks`);
-      if (!res.ok) throw new Error("Failed to load tasks");
-      const data: Task[] = await res.json();
-      setTasks(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+useEffect(() => {
+    let isMounted = true; // Cleanup flag
 
-  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/tasks`);
+        if (!res.ok) throw new Error("Failed to load tasks");
+        const data: Task[] = await res.json();
+        
+        if (isMounted) {
+          setTasks(data);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
     fetchTasks();
+
+    // Cleanup function prevents state updates if component unmounts
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // 2. Create Task (POST)
