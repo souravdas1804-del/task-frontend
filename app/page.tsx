@@ -8,7 +8,7 @@ interface Task {
   is_completed: boolean;
 }
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://todo-backend-dxwo.onrender.com";
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
