@@ -1,29 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
-  title: "To-do App",
-  description: "A simple to-do app",
+  title: "Sourav Das | Senior Salesforce Consultant & Developer",
+  description:
+    "Portfolio of Sourav Das - Senior Salesforce Consultant, Developer, and Administrator with 7 years of software engineering experience.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className="scroll-smooth">
+      <body className="bg-slate-950 text-slate-100 antialiased selection:bg-blue-500 selection:text-white">
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
