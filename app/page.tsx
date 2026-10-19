@@ -132,7 +132,7 @@ const education = [
   },
 ];
 
-export default function PortfolioPage() {
+export default async function PortfolioPage() {
   "use cache";
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100">
